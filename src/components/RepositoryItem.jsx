@@ -1,4 +1,14 @@
-import { Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import RepositoryItemInfo from './RepositoryItemInfo'
+import RepositoryItemStatistics from './RepositoryItemStatistics'
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    marginBottom: 1,
+    backgroundColor: 'white',
+  },
+})
 
 const RepositoryItem = ({
   item: {
@@ -9,18 +19,24 @@ const RepositoryItem = ({
     stargazersCount,
     ratingAverage,
     reviewCount,
+    ownerAvatarUrl,
   },
 }) => {
   return (
-    <>
-      <Text>Full name: {fullName}</Text>
-      <Text>Description: {description}</Text>
-      <Text>Language: {language}</Text>
-      <Text>Stars: {stargazersCount}</Text>
-      <Text>Forks: {forksCount}</Text>
-      <Text>Reviews: {reviewCount}</Text>
-      <Text>Rating: {ratingAverage}</Text>
-    </>
+    <View style={styles.container}>
+      <RepositoryItemInfo
+        fullName={fullName}
+        description={description}
+        language={language}
+        ownerAvatarUrl={ownerAvatarUrl}
+      />
+      <RepositoryItemStatistics
+        forksCount={forksCount}
+        stargazersCount={stargazersCount}
+        ratingAverage={ratingAverage}
+        reviewCount={reviewCount}
+      />
+    </View>
   )
 }
 

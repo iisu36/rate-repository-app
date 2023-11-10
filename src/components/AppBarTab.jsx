@@ -1,19 +1,22 @@
-import { StyleSheet, Text, Pressable } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
+import Text from './Text'
 
 const styles = StyleSheet.create({
   tab: {
     color: 'white',
     fontSize: 20,
-    paddingHorizontal: 8,
+    margin: 10,
   },
-  // ...
+  bar: { flexDirection: 'row' },
 })
 
 const AppBarTab = ({ tabText }) => {
   return (
-    <Pressable>
-      <Text style={styles.tab}>{tabText}</Text>
-    </Pressable>
+    <View style={styles.bar}>
+      <Pressable>
+        <Text style={styles.tab}>{tabText}</Text>
+      </Pressable>
+    </View>
   )
 }
 
