@@ -5,7 +5,6 @@ import { Link } from 'react-router-native'
 const styles = StyleSheet.create({
   link: {
     padding: 16,
-    margin: -16,
   },
 })
 
