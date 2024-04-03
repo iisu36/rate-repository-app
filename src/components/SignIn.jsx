@@ -1,4 +1,5 @@
 import { useFormik } from 'formik'
+import * as yup from 'yup'
 import { TextInput, View, StyleSheet, Pressable } from 'react-native'
 import theme from '../theme'
 import Text from './Text'
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
   },
   submitText: {
     color: 'white',
+    fontSize: theme.fontSizes.subheading,
   },
 })
 
@@ -42,24 +44,50 @@ const onSubmit = (values) => {
   console.log(values)
 }
 
+const validationSchema = yup.object().shape({
+  username: yup
+    .string()
+    .min(8, 'Username must contain at least eight characters')
+    .required('Username is required'),
+  password: yup
+    .string()
+    .min(8, 'Password must contain at least eight characters')
+    .required('Password is required'),
+})
+
 const SignIn = () => {
-  const formik = useFormik({ initialValues, onSubmit })
+  const formik = useFormik({ initialValues, validationSchema, onSubmit })
+
+  const usernameInputStyles = [
+    styles.textInput,
+    formik.touched.username && formik.errors.username && { borderColor: 'red' },
+  ]
+  const passwordInputStyles = [
+    styles.textInput,
+    formik.touched.username && formik.errors.password && { borderColor: 'red' },
+  ]
 
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.textInput}
+        style={usernameInputStyles}
         placeholder="Username"
         value={formik.values.username}
         onChangeText={formik.handleChange('username')}
       ></TextInput>
+      {formik.touched.username && formik.errors.username && (
+        <Text style={{ color: 'red' }}>{formik.errors.username}</Text>
+      )}
       <TextInput
-        style={styles.textInput}
+        style={passwordInputStyles}
         placeholder="Password"
         value={formik.values.password}
         onChangeText={formik.handleChange('password')}
         secureTextEntry
       ></TextInput>
+      {formik.touched.password && formik.errors.password && (
+        <Text style={{ color: 'red' }}>{formik.errors.password}</Text>
+      )}
       <Pressable style={styles.submitButton} onPress={formik.handleSubmit}>
         <Text style={styles.submitText}>Sign in</Text>
       </Pressable>
