@@ -7,8 +7,6 @@ const useSignIn = () => {
   const signIn = async ({ username, password }) => {
     // call the mutate function here with the right arguments
     await mutate({ variables: { username, password } })
-
-    return result
   }
 
   return [signIn, result]
