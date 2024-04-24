@@ -8,9 +8,17 @@ const styles = StyleSheet.create({
   },
 })
 
-const AppBarTab = ({ children, url }) => {
+const AppBarTab = ({ children, url, action = null }) => {
   return (
-    <Link to={url} style={styles.link}>
+    <Link
+      to={url}
+      style={styles.link}
+      onPress={() => {
+        if (action) {
+          action()
+        }
+      }}
+    >
       <Text fontWeight="bold" style={{ color: 'white' }}>
         {children}
       </Text>
