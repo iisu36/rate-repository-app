@@ -40,6 +40,20 @@ export const GET_SINGLE_REPOSITORY = gql`
       ratingAverage
       reviewCount
       stargazersCount
+      reviews {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `
