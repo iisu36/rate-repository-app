@@ -10,11 +10,12 @@ const styles = StyleSheet.create({
   },
 })
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, button = null }) => {
   return (
     <View testID="repositoryItem" style={styles.container}>
       <RepositoryDescription item={item} />
       <RepositoryStatistics item={item} />
+      {button ? button : null}
     </View>
   )
 }
