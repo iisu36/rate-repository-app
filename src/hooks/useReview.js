@@ -8,7 +8,6 @@ const useReview = () => {
 
   const createReview = async ({ review }) => {
     const { data } = await mutate({ variables: { review } })
-    console.log(data.createReview.repository.id)
     navigate(`/${data.createReview.repository.id}`)
     return { data }
   }
