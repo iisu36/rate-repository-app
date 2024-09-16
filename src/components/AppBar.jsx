@@ -33,12 +33,15 @@ const AppBar = () => {
         {username === null || username === undefined ? (
           <AppBarTab url="/sign-in">Sign in</AppBarTab>
         ) : (
-          <AppBarTab
-            url="/sign-in"
-            action={() => signOut(authStorage, apolloClient)}
-          >
-            Sign out
-          </AppBarTab>
+          <>
+            <AppBarTab
+              url="/sign-in"
+              action={() => signOut(authStorage, apolloClient)}
+            >
+              Sign out
+            </AppBarTab>
+            <AppBarTab url="/review">Create a review</AppBarTab>
+          </>
         )}
       </ScrollView>
     </View>
