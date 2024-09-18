@@ -7,11 +7,22 @@ const styles = StyleSheet.create({
   },
 })
 
-const ReviewList = ({ reviews, repositoryInfoComponent }) => {
+const ReviewList = ({
+  reviews,
+  repositoryInfoComponent,
+  actionButtons = false,
+  refetchReviews,
+}) => {
   return (
     <FlatList
       data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => (
+        <ReviewItem
+          review={item}
+          actionButtons={actionButtons}
+          refetchReviews={refetchReviews}
+        />
+      )}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={
         repositoryInfoComponent ? repositoryInfoComponent : null
