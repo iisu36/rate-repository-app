@@ -1,29 +1,13 @@
 import { useParams } from 'react-router-native'
 import RepositoryItem from './RepositoryItem'
 import useSingleRepository from '../hooks/useSingleRepository'
-import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet } from 'react-native'
 import Text from './Text'
 import theme from '../theme'
 import * as Linking from 'expo-linking'
-import { format } from 'date-fns'
+import ReviewList from './ReviewList'
 
 const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: 16,
-    backgroundColor: 'white',
-  },
-  container: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexGrow: 1,
-    flexShrink: 1,
-    gap: 4,
-  },
-  separator: {
-    height: 10,
-  },
   button: {
     display: 'flex',
     justifyContent: 'center',
@@ -37,21 +21,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: theme.fontSizes.subheading,
-  },
-  ratingContainer: {
-    display: 'flex',
-    paddingRight: 16,
-  },
-  ratingText: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 48,
-    height: 48,
-    borderColor: theme.colors.primary,
-    borderWidth: 2,
-    borderStyle: 'solid',
-    borderRadius: 24,
   },
 })
 
@@ -81,27 +50,6 @@ const Button = ({ repositoryUrl }) => {
   )
 }
 
-const ReviewItem = ({ review }) => {
-  return (
-    <View style={styles.wrapper}>
-      <View style={styles.ratingContainer}>
-        <Text style={styles.ratingText} color={'primary'} fontWeight={'bold'}>
-          {review.rating}
-        </Text>
-      </View>
-      <View style={styles.container}>
-        <Text fontWeight={'bold'}>{review.user.username}</Text>
-        <Text color={'textSecondary'}>
-          {format(review.createdAt, 'dd.MM.yyyy')}
-        </Text>
-        <Text color={'textPrimary'}>{review.text}</Text>
-      </View>
-    </View>
-  )
-}
-
-const ItemSeparator = () => <View style={styles.separator} />
-
 const SingleRepository = () => {
   const { repositoryId } = useParams()
   const { repository } = useSingleRepository(repositoryId)
@@ -111,12 +59,9 @@ const SingleRepository = () => {
   const reviews = repository.reviews.edges.map((edge) => edge.node)
 
   return (
-    <FlatList
-      data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
-      ItemSeparatorComponent={ItemSeparator}
+    <ReviewList
+      reviews={reviews}
+      repositoryInfoComponent={<RepositoryInfo repository={repository} />}
     />
   )
 }

@@ -22,7 +22,7 @@ const signOut = async (authStorage, apolloClient) => {
 }
 
 const AppBar = () => {
-  const { username } = useMe()
+  const { userData } = useMe()
   const authStorage = useAuthStorage()
   const apolloClient = useApolloClient()
 
@@ -30,20 +30,21 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab url="/">Repositories</AppBarTab>
-        {username === null || username === undefined ? (
+        {userData?.username === null || userData?.username === undefined ? (
           <>
             <AppBarTab url="/sign-in">Sign in</AppBarTab>
             <AppBarTab url="/sign-up">Sign up</AppBarTab>
           </>
         ) : (
           <>
+            <AppBarTab url="/create-review">Create a review</AppBarTab>
+            <AppBarTab url="/reviews">My reviews</AppBarTab>
             <AppBarTab
               url="/sign-in"
               action={() => signOut(authStorage, apolloClient)}
             >
               Sign out
             </AppBarTab>
-            <AppBarTab url="/review">Create a review</AppBarTab>
           </>
         )}
       </ScrollView>
