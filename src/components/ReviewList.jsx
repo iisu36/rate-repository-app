@@ -12,6 +12,7 @@ const ReviewList = ({
   repositoryInfoComponent,
   actionButtons = false,
   refetchReviews,
+  onEndReach,
 }) => {
   return (
     <FlatList
@@ -24,6 +25,8 @@ const ReviewList = ({
         />
       )}
       keyExtractor={({ id }) => id}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.3}
       ListHeaderComponent={
         repositoryInfoComponent ? repositoryInfoComponent : null
       }

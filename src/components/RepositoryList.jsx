@@ -21,11 +21,16 @@ const RepositoryList = () => {
   const [sortingValue, setSortingValue] = useState('latest')
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500)
-  const { repositories } = useRepositories(
-    sorter(sortingValue)[0],
-    sorter(sortingValue)[1],
-    debouncedSearchQuery
-  )
+  const { repositories, fetchMore } = useRepositories({
+    first: 10,
+    orderBy: sorter(sortingValue)[0],
+    orderDirection: sorter(sortingValue)[1],
+    searchKeyword: debouncedSearchQuery,
+  })
+
+  const onEndReach = () => {
+    fetchMore()
+  }
 
   return (
     <RepositoryListContainer
@@ -38,11 +43,16 @@ const RepositoryList = () => {
           setSearchQuery={setSearchQuery}
         />
       }
+      onEndReach={onEndReach}
     />
   )
 }
 
-export const RepositoryListContainer = ({ repositories, headerComponent }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  headerComponent,
+  onEndReach,
+}) => {
   const navigate = useNavigate()
 
   const repositoryNodes = repositories
@@ -54,6 +64,8 @@ export const RepositoryListContainer = ({ repositories, headerComponent }) => {
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={headerComponent}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.3}
       renderItem={({ item }) => (
         <Pressable onPress={() => navigate(`${item.id}`)}>
           <RepositoryItem key={item.id} item={item}></RepositoryItem>

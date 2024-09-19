@@ -52,16 +52,24 @@ const Button = ({ repositoryUrl }) => {
 
 const SingleRepository = () => {
   const { repositoryId } = useParams()
-  const { repository } = useSingleRepository(repositoryId)
+  const { repository, fetchMore } = useSingleRepository({
+    repositoryId,
+    first: 10,
+  })
 
   if (repository === undefined || repository === null) return null
 
   const reviews = repository.reviews.edges.map((edge) => edge.node)
 
+  const onEndReach = () => {
+    fetchMore()
+  }
+
   return (
     <ReviewList
       reviews={reviews}
       repositoryInfoComponent={<RepositoryInfo repository={repository} />}
+      onEndReach={onEndReach}
     />
   )
 }
