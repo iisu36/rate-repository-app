@@ -76,7 +76,9 @@ const ReviewItem = ({ review, actionButtons, refetchReviews }) => {
           </Text>
         </View>
         <View style={styles.reviewContainer}>
-          <Text fontWeight={'bold'}>{review.user.username}</Text>
+          <Text fontWeight={'bold'}>
+            {actionButtons ? review.repository.fullName : review.user.username}
+          </Text>
           <Text color={'textSecondary'}>
             {format(review.createdAt, 'dd.MM.yyyy')}
           </Text>

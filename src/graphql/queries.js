@@ -55,6 +55,7 @@ export const ME = gql`
             }
             repository {
               id
+              fullName
             }
           }
         }
