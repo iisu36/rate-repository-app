@@ -21,17 +21,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     gap: 4,
+    paddingLeft: 16,
   },
   ratingContainer: {
-    display: 'flex',
-    paddingRight: 16,
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  ratingText: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,6 +33,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderRadius: 24,
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  ratingText: {
+    //display: 'flex',
   },
   viewButton: {
     display: 'flex',
